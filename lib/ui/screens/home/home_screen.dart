@@ -5,28 +5,28 @@ class HomeScreen extends StatelessWidget {
   //TODO: In future tasks this should be moved to bloc logic
   final List<ScreenWithLabelAndIcon> _screensWithLabelAndIcon = [
     ScreenWithLabelAndIcon(
-      label: SeasonsScreen.LABEL,
-      iconData: SeasonsScreen.ICON,
+      label: AppScreenLabels.SeasonsScreen,
+      iconData: AppIconDatas.SeasonsScreen,
       screen: SeasonsScreen(),
     ),
     ScreenWithLabelAndIcon(
-      label: CharactersScreen.LABEL,
-      iconData: CharactersScreen.ICON,
+      label: AppScreenLabels.CharactersScreen,
+      iconData: AppIconDatas.CharactersScreen,
       screen: CharactersScreen(),
     ),
     ScreenWithLabelAndIcon(
-      label: QuotesScreen.LABEL,
-      iconData: QuotesScreen.ICON,
+      label: AppScreenLabels.QuotesScreen,
+      iconData: AppIconDatas.QuotesScreen,
       screen: QuotesScreen(),
     ),
     ScreenWithLabelAndIcon(
-      label: DeathsScreen.LABEL,
-      iconData: DeathsScreen.ICON,
+      label: AppScreenLabels.DeathsScreen,
+      iconData: AppIconDatas.DeathsScreen,
       screen: DeathsScreen(),
     ),
     ScreenWithLabelAndIcon(
-      label: FavouritesScreen.LABEL,
-      iconData: FavouritesScreen.ICON,
+      label: AppScreenLabels.FavouritesScreen,
+      iconData: AppIconDatas.FavouritesScreen,
       screen: FavouritesScreen(),
     ),
   ];
