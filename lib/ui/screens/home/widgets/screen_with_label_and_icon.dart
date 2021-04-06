@@ -6,8 +6,8 @@ class ScreenWithLabelAndIcon {
   final Widget screen;
 
   const ScreenWithLabelAndIcon({
-    @required this.label,
-    @required this.iconData,
-    @required this.screen,
+    required this.label,
+    required this.iconData,
+    required this.screen,
   });
 }
