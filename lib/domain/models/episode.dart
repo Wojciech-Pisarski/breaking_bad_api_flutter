@@ -8,6 +8,8 @@ class Episode {
   final String airDate;
   final List<String> characters;
   final String series;
+  static const String _WEB_POSTFIX = '/episodes';
+  static const String _ID_COLUMN_NAME = 'episode_id';
 
   const Episode({
     required this.id,
@@ -19,7 +21,7 @@ class Episode {
     required this.series,
   });
 
-  factory Episode.fromJson(Map<String, dynamic> json) => Episode(
+  factory Episode._fromJson(Map<String, dynamic> json) => Episode(
         id: json['episode_id'],
         title: json['title'],
         season: json['season'],
@@ -29,16 +31,59 @@ class Episode {
         series: json['series'],
       );
 
-  static Future<Episode> getEpisodeById(int episodeId) async =>
-      await WebUtility.getEpisodeById(episodeId);
+  static addEpisodeToFavourites(int episodeId) => DatabaseUtility.addValue(
+        episodeId,
+        DbTables.FAVOURITE_EPISODES_TABLE,
+      );
 
-  static Future<List<Episode>> getAllEpisodesForSeasonNumber(
+  static removeEpisodeFromFavourites(int episodeId) =>
+      DatabaseUtility.removeValue(
+        episodeId,
+        DbTables.FAVOURITE_EPISODES_TABLE,
+      );
+
+  static Future<List<int>> getAllFavouriteEpisodesIds() async =>
+      await DatabaseUtility.getValues(
+        DbTables.FAVOURITE_EPISODES_TABLE,
+      );
+
+  static Future<List<Map<String, dynamic>>> getEpisodesDataForSeasonNumber(
       int seasonNumber) async {
     if (seasonNumber >= Season.firstSeason &&
         seasonNumber <= Season.lastSeason) {
-      return await WebUtility.getAllEpisodesForSeasonNumber(seasonNumber);
+      var episodesData;
+      try {
+        episodesData = await WebUtility.getCollectionOfData(_WEB_POSTFIX);
+      } catch (exception) {
+        throw 'Error occurred\n$exception';
+      }
+      return episodesData
+          .where((element) => element['season'] == seasonNumber.toString())
+          .toList();
     } else {
-      throw 'Incorrent season number provided: $seasonNumber';
+      throw 'Wrong season number provided';
     }
+  }
+
+  static Future<List<Map<String, dynamic>>> getEpisodesDataForIds(
+      List<int> episodesIds) async {
+    var episodesData;
+    try {
+      episodesData = await WebUtility.getCollectionOfDataForIdList(
+        episodesIds,
+        _ID_COLUMN_NAME,
+        _WEB_POSTFIX,
+      );
+    } catch (exception) {
+      throw 'Error occurred\n$exception';
+    }
+    return episodesData;
+  }
+
+  static List<Episode> getEpisodesFromEpisodesData(
+      List<Map<String, dynamic>> episodesData) {
+    final List<Episode> episodes = [];
+    episodesData.forEach((element) => episodes.add(Episode._fromJson(element)));
+    return episodes;
   }
 }
