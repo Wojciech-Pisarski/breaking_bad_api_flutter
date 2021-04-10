@@ -9,6 +9,7 @@ class Death {
   final int season;
   final int episode;
   final int numberOfDeaths;
+  static const String _WEB_POSTFIX = '/death';
 
   const Death({
     required this.id,
@@ -21,7 +22,7 @@ class Death {
     required this.numberOfDeaths,
   });
 
-  factory Death.fromJson(Map<String, dynamic> json) => Death(
+  factory Death._fromJson(Map<String, dynamic> json) => Death(
         id: json['death_id'],
         death: json['death'],
         cause: json['cause'],
@@ -32,10 +33,20 @@ class Death {
         numberOfDeaths: json['number_of_deaths'],
       );
 
-  static Future<Death> getDeathForNameAndSurname(
-          String name, String surname) async =>
-      await WebUtility.getDeathForNameAndSurname(name, surname);
+  static Future<List<Map<String, dynamic>>> getAllDeathsData() async {
+    var deathsData;
+    try {
+      deathsData = await WebUtility.getCollectionOfData(_WEB_POSTFIX);
+    } catch (exception) {
+      throw 'Error occurred\n$exception';
+    }
+    return deathsData;
+  }
 
-  static Future<List<Death>> getAllDeaths() async =>
-      await WebUtility.getAllDeaths();
+  static List<Death> getDeathsFromDeathsData(
+      List<Map<String, dynamic>> deathsData) {
+    final List<Death> deaths = [];
+    deathsData.forEach((element) => deaths.add(Death._fromJson(element)));
+    return deaths;
+  }
 }
