@@ -36,7 +36,6 @@ class _State extends State<MyApp> {
         ),
       );
 
-  //TODO: Implement :
   Widget _buildLoader(LoadingState state) =>
       state is LoadingStarted ? LoadingOverlay() : SizedBox.shrink();
 }
