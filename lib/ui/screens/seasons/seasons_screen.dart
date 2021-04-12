@@ -1,4 +1,3 @@
-import 'package:breaking_bad_api_flutter/domain/blocs/blocs.dart';
 import 'package:breaking_bad_api_flutter/domain/domain.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:breaking_bad_api_flutter/ui/ui.dart';
@@ -76,7 +75,9 @@ class _SeasonsScreenState extends State<SeasonsScreen> {
       Navigator.push(
         context,
         CupertinoPageRoute(
-          builder: (context) => EpisodesScreen(),
+          builder: (context) => EpisodesBlocProvider(
+            seasonsTransferDto: seasonsTransferDto,
+          ),
         ),
       );
 }
