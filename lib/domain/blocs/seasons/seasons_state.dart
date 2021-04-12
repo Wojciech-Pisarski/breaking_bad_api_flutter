@@ -10,9 +10,9 @@ class SeasonsState {
 
 class SeasonsInitial extends SeasonsState {
   const SeasonsInitial({
-    required SeasonsDisplayedData seasonsWidgetData,
+    required SeasonsDisplayedData seasonsDisplayedData,
   }) : super(
-          seasonsDisplayedData: seasonsWidgetData,
+          seasonsDisplayedData: seasonsDisplayedData,
         );
 }
 

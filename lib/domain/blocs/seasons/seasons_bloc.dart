@@ -11,7 +11,7 @@ class SeasonsBloc extends Bloc<SeasonsEvent, SeasonsState> {
         super(_emitInitialState());
 
   static SeasonsInitial _emitInitialState() => SeasonsInitial(
-        seasonsWidgetData: SeasonsOriginalData.fromSeasons(
+        seasonsDisplayedData: SeasonsOriginalData.fromSeasons(
           seasons: Season.allSeasons,
         ).convertToDisplayedData(),
       );
@@ -31,8 +31,9 @@ class SeasonsBloc extends Bloc<SeasonsEvent, SeasonsState> {
       );
 
   SeasonsLoadedEpisodes _loadedEpisodes() => SeasonsLoadedEpisodes(
-        seasonsTransferDto:
-            SeasonsTransferDto(episodes: _seasonsOriginalData.episodes),
+        seasonsTransferDto: SeasonsTransferDto(
+          episodes: _seasonsOriginalData.episodes,
+        ),
         seasonsDisplayedData: _seasonsOriginalData.convertToDisplayedData(),
       );
 }
