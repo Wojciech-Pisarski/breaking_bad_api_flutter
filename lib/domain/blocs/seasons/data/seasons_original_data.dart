@@ -1,4 +1,5 @@
 import 'package:breaking_bad_api_flutter/domain/models/models.dart';
+import 'package:breaking_bad_api_flutter/ui/strings/app_labels.dart';
 import 'data.dart';
 
 class SeasonsOriginalData {
@@ -20,6 +21,6 @@ class SeasonsOriginalData {
   SeasonToDisplay _convertSeasonToDisplayedSeason(Season season) =>
       SeasonToDisplay(
         id: season.number,
-        label: season.number,
+        label: '${AppLabels.Season} ${season.number}',
       );
 }

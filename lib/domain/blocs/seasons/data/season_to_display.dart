@@ -1,6 +1,6 @@
 class SeasonToDisplay {
   final int id;
-  final int label;
+  final String label;
 
   const SeasonToDisplay({
     required this.id,

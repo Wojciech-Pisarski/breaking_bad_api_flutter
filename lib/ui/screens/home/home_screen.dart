@@ -7,7 +7,7 @@ class HomeScreen extends StatelessWidget {
     ScreenWithLabelAndIcon(
       label: AppScreenLabels.SeasonsScreen,
       iconData: AppIconDatas.SeasonsScreen,
-      screen: SeasonsScreen(),
+      screen: SeasonsBlocProvider(),
     ),
     ScreenWithLabelAndIcon(
       label: AppScreenLabels.CharactersScreen,
