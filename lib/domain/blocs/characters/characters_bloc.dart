@@ -8,7 +8,8 @@ class CharactersBloc extends Bloc<CharactersEvent, CharactersState> {
 
   @override
   Stream<CharactersState> mapEventToState(CharactersEvent event) async* {
-    if (event is CharactersInitial) {
+    if (event is CharactersRefreshCharacters) {
+      yield _initial();
       var charactersData = await Character.getAllCharactersData();
       _charactersOriginalData = CharactersOriginalData(
         characters: Character.getCharactersFromCharactersData(charactersData),
@@ -21,6 +22,8 @@ class CharactersBloc extends Bloc<CharactersEvent, CharactersState> {
       yield _loadedCharacter();
     }
   }
+
+  CharactersInitial _initial() => CharactersInitial();
 
   CharactersInitialFinished _initialFinished() => CharactersInitialFinished(
         charactersDisplayedData:

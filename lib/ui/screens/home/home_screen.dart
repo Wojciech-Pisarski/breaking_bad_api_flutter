@@ -12,7 +12,7 @@ class HomeScreen extends StatelessWidget {
     ScreenWithLabelAndIcon(
       label: AppScreenLabels.CharactersScreen,
       iconData: AppIconDatas.CharactersScreen,
-      screen: CharactersScreen(),
+      screen: CharactersBlocProvider(),
     ),
     ScreenWithLabelAndIcon(
       label: AppScreenLabels.QuotesScreen,
