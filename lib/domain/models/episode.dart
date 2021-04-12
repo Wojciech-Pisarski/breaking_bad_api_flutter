@@ -31,7 +31,10 @@ class Episode {
         series: json['series'],
       );
 
-  static addEpisodeToFavourites(int episodeId) => DatabaseUtility.addValue(
+  static addEpisodeToFavourites(
+    int episodeId,
+  ) =>
+      DatabaseUtility.addValue(
         episodeId,
         DbTables.FAVOURITE_EPISODES_TABLE,
       );
@@ -47,8 +50,9 @@ class Episode {
         DbTables.FAVOURITE_EPISODES_TABLE,
       );
 
-  static Future<List<Map<String, dynamic>>> getEpisodesDataForSeasonNumber(
-      int seasonNumber) async {
+  static Future<List<Map<String, dynamic>>> _getEpisodesDataForSeasonNumber(
+    int seasonNumber,
+  ) async {
     if (seasonNumber >= Season.firstSeason &&
         seasonNumber <= Season.lastSeason) {
       var episodesData;
@@ -66,7 +70,8 @@ class Episode {
   }
 
   static Future<List<Map<String, dynamic>>> getEpisodesDataForIds(
-      List<int> episodesIds) async {
+    List<int> episodesIds,
+  ) async {
     var episodesData;
     try {
       episodesData = await WebUtility.getCollectionOfDataForIdList(
@@ -80,10 +85,15 @@ class Episode {
     return episodesData;
   }
 
-  static List<Episode> getEpisodesFromEpisodesData(
-      List<Map<String, dynamic>> episodesData) {
+  static Future<List<Episode>> getEpisodesFromEpisodesData(
+    int seasonNumber,
+  ) async {
+    var episodesData =
+        await Episode._getEpisodesDataForSeasonNumber(seasonNumber);
     final List<Episode> episodes = [];
-    episodesData.forEach((element) => episodes.add(Episode._fromJson(element)));
+    for (var episode in episodesData) {
+      episodes.add(Episode._fromJson(episode));
+    }
     return episodes;
   }
 }
