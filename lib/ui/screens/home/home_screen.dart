@@ -47,7 +47,10 @@ class HomeScreen extends StatelessWidget {
       (element) => tabBarItems.add(
         BottomNavigationBarItem(
           label: element.label,
-          icon: Icon(element.iconData),
+          icon: Icon(
+            element.iconData,
+            size: ComponentDimensions.iosListViewIconSize,
+          ),
         ),
       ),
     );

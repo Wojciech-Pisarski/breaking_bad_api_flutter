@@ -7,8 +7,6 @@ abstract class DatabaseUtility {
   static const String _databaseName = 'users_favourites_db.db';
   static const int _databaseVersion = 1;
 
-  // TODO: Ogarnąć o co chodzi z błędami przy włączaniu apki
-
   static initializeDatabase() async {
     final databasePath = join(await getDatabasesPath(), _databaseName);
     _database = await openDatabase(
