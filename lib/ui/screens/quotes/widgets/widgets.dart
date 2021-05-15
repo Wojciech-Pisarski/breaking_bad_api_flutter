@@ -1,0 +1,1 @@
+export 'quotes_bloc_provider.dart';
