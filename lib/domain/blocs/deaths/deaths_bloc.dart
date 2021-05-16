@@ -10,7 +10,7 @@ class DeathsBloc extends Bloc<DeathsEvent, DeathsState> {
   Stream<DeathsState> mapEventToState(DeathsEvent event) async* {
     if (event is DeathsRefreshDeaths) {
       yield _initial();
-      var deathsData = await Character.getAllCharactersData();
+      var deathsData = await Death.getAllDeathsData();
       _deathsOriginalData = DeathsOriginalData(
         deaths: Death.getDeathsFromDeathsData(deathsData),
       );

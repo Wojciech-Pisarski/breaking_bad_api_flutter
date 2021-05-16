@@ -22,7 +22,7 @@ class HomeScreen extends StatelessWidget {
     ScreenWithLabelAndIcon(
       label: AppScreenLabels.DeathsScreen,
       iconData: AppIconDatas.DeathsScreen,
-      screen: DeathsScreen(),
+      screen: DeathsBlocProvider(),
     ),
     ScreenWithLabelAndIcon(
       label: AppScreenLabels.FavouritesScreen,
