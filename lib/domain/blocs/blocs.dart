@@ -1,4 +1,5 @@
 export 'characters/characters.dart';
+export 'deaths/deaths.dart';
 export 'episodes/episodes.dart';
 export 'loading/loading.dart';
 export 'quotes/quotes.dart';
