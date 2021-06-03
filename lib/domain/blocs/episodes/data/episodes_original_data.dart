@@ -1,3 +1,4 @@
+import 'package:breaking_bad_api_flutter/domain/blocs/blocs.dart';
 import 'package:breaking_bad_api_flutter/domain/blocs/seasons/data/data.dart';
 import 'package:breaking_bad_api_flutter/domain/models/models.dart';
 import 'data.dart';
@@ -13,6 +14,10 @@ class EpisodesOriginalData {
   EpisodesOriginalData.fromSeasonsTransferDto(
     SeasonsTransferDto seasonsTransferDto,
   ) : episodes = seasonsTransferDto.episodes;
+
+  EpisodesOriginalData.fromFavouritesTransferDto(
+    FavouritesTransferDto favouritesTransferDto,
+  ) : episodes = favouritesTransferDto.episodes!;
 
   EpisodesDisplayedData convertToDisplayedData() => EpisodesDisplayedData(
         episodesToDisplay:

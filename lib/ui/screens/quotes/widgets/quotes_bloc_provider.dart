@@ -4,10 +4,18 @@ import 'package:breaking_bad_api_flutter/domain/domain.dart';
 import '../quotes.dart';
 
 class QuotesBlocProvider extends StatelessWidget {
+  final FavouritesTransferDto? favouritesTransferDto;
+
+  const QuotesBlocProvider({
+    this.favouritesTransferDto,
+  });
+
   @override
   Widget build(BuildContext context) => BlocProvider(
-        create: (context) =>
-            QuotesBloc()..add(QuotesRefreshQuotes()),
+        create: (context) => favouritesTransferDto != null
+            ? QuotesBloc(favouritesTransferDto: favouritesTransferDto)
+            : QuotesBloc()
+          ..add(QuotesRefreshQuotes()),
         child: QuotesScreen(),
       );
 }

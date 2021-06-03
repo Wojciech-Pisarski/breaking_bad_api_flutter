@@ -85,7 +85,7 @@ class Episode {
     return episodesData;
   }
 
-  static Future<List<Episode>> getEpisodesFromEpisodesData(
+  static Future<List<Episode>> getEpisodesFromSeasonNumber(
     int seasonNumber,
   ) async {
     var episodesData =
@@ -95,5 +95,14 @@ class Episode {
       episodes.add(Episode._fromJson(episode));
     }
     return episodes;
+  }
+
+  static getEpisodesFromEpisodesDataList(
+      List<Map<String, dynamic>> episodesDataList) {
+    var episodesList = <Episode>[];
+    for (var episodeData in episodesDataList) {
+      episodesList.add(Episode._fromJson(episodeData));
+    }
+    return episodesList;
   }
 }

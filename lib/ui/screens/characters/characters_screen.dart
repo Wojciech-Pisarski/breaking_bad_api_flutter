@@ -38,7 +38,8 @@ class _CharactersScreenState extends State<CharactersScreen> {
   _buildListener(BuildContext context, CharactersState state) {
     if (state is CharactersInitial || state is CharactersChosenCharacter) {
       LoadingUtility.startLoading(context);
-    } else if (state is CharactersInitialFinished) {
+    } else if (state is CharactersInitialFinished ||
+        state is CharactersInitialFromFavouritesDto) {
       LoadingUtility.finishLoading(context);
     } else if (state is CharactersLoadedCharacter) {
       LoadingUtility.finishLoading(context);

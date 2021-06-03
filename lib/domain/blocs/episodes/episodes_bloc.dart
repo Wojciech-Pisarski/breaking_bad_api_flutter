@@ -2,25 +2,44 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:breaking_bad_api_flutter/domain/domain.dart';
 
 class EpisodesBloc extends Bloc<EpisodesEvent, EpisodesState> {
-  final EpisodesOriginalData _episodesOriginalData;
+  EpisodesOriginalData _episodesOriginalData;
+  bool _showOnlyFavourites;
 
   EpisodesBloc({
-    required SeasonsTransferDto seasonsTransferDto,
-  })   : _episodesOriginalData =
-            EpisodesOriginalData.fromSeasonsTransferDto(seasonsTransferDto),
-        super(_emitInitialState(seasonsTransferDto));
+    SeasonsTransferDto? seasonsTransferDto,
+    FavouritesTransferDto? favouritesTransferDto,
+  })  : assert(seasonsTransferDto != null && favouritesTransferDto == null ||
+            seasonsTransferDto == null && favouritesTransferDto != null),
+        _showOnlyFavourites = favouritesTransferDto != null,
+        _episodesOriginalData = seasonsTransferDto == null
+            ? EpisodesOriginalData.fromFavouritesTransferDto(
+                favouritesTransferDto!)
+            : EpisodesOriginalData.fromSeasonsTransferDto(seasonsTransferDto),
+        super(_emitInitialState(seasonsTransferDto, favouritesTransferDto));
 
   static EpisodesInitial _emitInitialState(
-          SeasonsTransferDto seasonsTransferDto) =>
+          SeasonsTransferDto? seasonsTransferDto,
+          FavouritesTransferDto? favouritesTransferDto) =>
       EpisodesInitial(
-        episodesDisplayedData:
-            EpisodesOriginalData.fromSeasonsTransferDto(seasonsTransferDto)
+        episodesDisplayedData: seasonsTransferDto == null
+            ? EpisodesOriginalData.fromFavouritesTransferDto(
+                    favouritesTransferDto!)
+                .convertToDisplayedData()
+            : EpisodesOriginalData.fromSeasonsTransferDto(seasonsTransferDto)
                 .convertToDisplayedData(),
       );
 
   @override
   Stream<EpisodesState> mapEventToState(EpisodesEvent event) async* {
-    if (event is EpisodesChooseEpisode) {
+    if (event is EpisodesRefreshFavouriteEpisodes && _showOnlyFavourites) {
+      final List<int> favEpisodesIds =
+          await Episode.getAllFavouriteEpisodesIds();
+      final List<Map<String, dynamic>> favEpisodesData =
+          await Episode.getEpisodesDataForIds(favEpisodesIds);
+      final List<Episode> favEpisodes =
+          await Episode.getEpisodesFromEpisodesDataList(favEpisodesData);
+      _episodesOriginalData = EpisodesOriginalData(episodes: favEpisodes);
+    } else if (event is EpisodesChooseEpisode) {
       yield _chosenEpisode();
       _episodesOriginalData.episode = _episodesOriginalData.episodes
           .firstWhere((element) => element.id == event.episodeId);

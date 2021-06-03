@@ -1,3 +1,5 @@
+import 'package:breaking_bad_api_flutter/domain/blocs/blocs.dart';
+
 import 'data/data.dart';
 
 class CharactersState {
@@ -14,6 +16,14 @@ class CharactersInitial extends CharactersState {
           charactersDisplayedData: const CharactersDisplayedData(
             charactersToDisplay: <CharacterToDisplay>[],
           ),
+        );
+}
+
+class CharactersInitialFromFavouritesDto extends CharactersState {
+  const CharactersInitialFromFavouritesDto({
+    required CharactersDisplayedData charactersDisplayedData,
+  }) : super(
+          charactersDisplayedData: charactersDisplayedData,
         );
 }
 
