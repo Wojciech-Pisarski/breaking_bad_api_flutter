@@ -11,9 +11,17 @@ class QuotesState {
 class QuotesInitial extends QuotesState {
   const QuotesInitial()
       : super(
-    quotesDisplayedData: const QuotesDisplayedData(
+          quotesDisplayedData: const QuotesDisplayedData(
             quotesToDisplay: <QuoteToDisplay>[],
           ),
+        );
+}
+
+class QuotesInitialFromFavouritesDto extends QuotesState {
+  const QuotesInitialFromFavouritesDto({
+    required QuotesDisplayedData quotesDisplayedData,
+  }) : super(
+          quotesDisplayedData: quotesDisplayedData,
         );
 }
 

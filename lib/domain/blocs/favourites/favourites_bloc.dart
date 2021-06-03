@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:breaking_bad_api_flutter/domain/domain.dart';
 
 class FavouritesBloc extends Bloc<FavouritesEvent, FavouritesState> {
-  static final FavouritesDisplayedData _favouritesDisplayedData =
+  static final FavouritesDisplayedData favouritesDisplayedData =
       FavouritesDisplayedData(
     favouritesToDisplay: <FavouriteToDisplay>[
       FavouriteToDisplay(
@@ -38,7 +38,7 @@ class FavouritesBloc extends Bloc<FavouritesEvent, FavouritesState> {
   Future<FavouritesTransferDto> _buildFavouritesTransferDto(
       int favouriteId) async {
     final FavouritesTransferDto favouritesTransferDto;
-    final String label = _favouritesDisplayedData.favouritesToDisplay
+    final String label = favouritesDisplayedData.favouritesToDisplay
         .firstWhere((element) => element.id == favouriteId)
         .label;
     switch (label) {

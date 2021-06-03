@@ -21,7 +21,7 @@ class SeasonsBloc extends Bloc<SeasonsEvent, SeasonsState> {
     if (event is SeasonsChooseSeason) {
       yield _chosenSeason();
       _seasonsOriginalData.episodes =
-          await Episode.getEpisodesFromEpisodesData(event.seasonNumber);
+          await Episode.getEpisodesFromSeasonNumber(event.seasonNumber);
       yield _loadedEpisodes();
     }
   }

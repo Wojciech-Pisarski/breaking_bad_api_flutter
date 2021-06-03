@@ -5,6 +5,7 @@ import 'package:breaking_bad_api_flutter/ui/ui.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class EpisodesScreen extends StatefulWidget {
+  const EpisodesScreen();
   @override
   _EpisodesScreenState createState() => _EpisodesScreenState();
 }

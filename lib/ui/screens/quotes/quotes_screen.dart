@@ -5,6 +5,9 @@ import 'package:breaking_bad_api_flutter/ui/ui.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class QuotesScreen extends StatefulWidget {
+  final FavouritesTransferDto? favouritesTransferDto;
+
+  const QuotesScreen({this.favouritesTransferDto});
   @override
   _QuotesScreenState createState() => _QuotesScreenState();
 }
@@ -20,19 +23,19 @@ class _QuotesScreenState extends State<QuotesScreen> {
 
   @override
   Widget build(BuildContext context) => CupertinoPageScaffold(
-    backgroundColor: AppColors.screenGrayBackground,
-    navigationBar: _buildCupertinoNavigationBar(),
-    child: SafeArea(
-      child: BlocConsumer<QuotesBloc, QuotesState>(
-        listener: _buildListener,
-        builder: (_, state) => _buildIosListView(state),
-      ),
-    ),
-  );
+        backgroundColor: AppColors.screenGrayBackground,
+        navigationBar: _buildCupertinoNavigationBar(),
+        child: SafeArea(
+          child: BlocConsumer<QuotesBloc, QuotesState>(
+            listener: _buildListener,
+            builder: (_, state) => _buildIosListView(state),
+          ),
+        ),
+      );
 
   CupertinoNavigationBar _buildCupertinoNavigationBar() =>
       CupertinoNavigationBar(
-        middle: Text(AppScreenLabels.CharactersScreen),
+        middle: Text(AppScreenLabels.QuotesScreen),
       );
 
   _buildListener(BuildContext context, QuotesState state) {
@@ -47,10 +50,10 @@ class _QuotesScreenState extends State<QuotesScreen> {
   }
 
   Widget _buildIosListView(QuotesState state) => IosListViewComponent(
-    itemsData: _buildIosListViewItemData(
-        state.quotesDisplayedData.quotesToDisplay),
-    onItemPress: _chooseQuote,
-  );
+        itemsData: _buildIosListViewItemData(
+            state.quotesDisplayedData.quotesToDisplay),
+        onItemPress: _chooseQuote,
+      );
 
   List<IosListViewItemData> _buildIosListViewItemData(
       List<QuoteToDisplay> quoteToDisplay) {
@@ -67,10 +70,10 @@ class _QuotesScreenState extends State<QuotesScreen> {
   }
 
   _chooseQuote(int quoteId) => _quotesBloc.add(
-    QuotesChooseQuote(
-      quoteId: quoteId,
-    ),
-  );
+        QuotesChooseQuote(
+          quoteId: quoteId,
+        ),
+      );
 
 //_navigateToQuoteScreen(QuotesTransferDto quotesTransferDto) =>
 // TODO: Implement in future tasks

@@ -9,3 +9,5 @@ class EpisodesChooseEpisode extends EpisodesEvent {
     required this.episodeId,
   });
 }
+
+class EpisodesRefreshFavouriteEpisodes extends EpisodesEvent {}

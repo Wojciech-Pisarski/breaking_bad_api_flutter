@@ -20,19 +20,19 @@ class _DeathsScreenState extends State<DeathsScreen> {
 
   @override
   Widget build(BuildContext context) => CupertinoPageScaffold(
-    backgroundColor: AppColors.screenGrayBackground,
-    navigationBar: _buildCupertinoNavigationBar(),
-    child: SafeArea(
-      child: BlocConsumer<DeathsBloc, DeathsState>(
-        listener: _buildListener,
-        builder: (_, state) => _buildIosListView(state),
-      ),
-    ),
-  );
+        backgroundColor: AppColors.screenGrayBackground,
+        navigationBar: _buildCupertinoNavigationBar(),
+        child: SafeArea(
+          child: BlocConsumer<DeathsBloc, DeathsState>(
+            listener: _buildListener,
+            builder: (_, state) => _buildIosListView(state),
+          ),
+        ),
+      );
 
   CupertinoNavigationBar _buildCupertinoNavigationBar() =>
       CupertinoNavigationBar(
-        middle: Text(AppScreenLabels.CharactersScreen),
+        middle: Text(AppScreenLabels.DeathsScreen),
       );
 
   _buildListener(BuildContext context, DeathsState state) {
@@ -47,10 +47,10 @@ class _DeathsScreenState extends State<DeathsScreen> {
   }
 
   Widget _buildIosListView(DeathsState state) => IosListViewComponent(
-    itemsData: _buildIosListViewItemData(
-        state.deathsDisplayedData.deathsToDisplay),
-    onItemPress: _chooseDeath,
-  );
+        itemsData: _buildIosListViewItemData(
+            state.deathsDisplayedData.deathsToDisplay),
+        onItemPress: _chooseDeath,
+      );
 
   List<IosListViewItemData> _buildIosListViewItemData(
       List<DeathToDisplay> deathsToDisplay) {
@@ -67,10 +67,10 @@ class _DeathsScreenState extends State<DeathsScreen> {
   }
 
   _chooseDeath(int deathId) => _deathsBloc.add(
-    DeathsChooseDeath(
-      deathId: deathId,
-    ),
-  );
+        DeathsChooseDeath(
+          deathId: deathId,
+        ),
+      );
 
 //_navigateToDeathScreen(DeathsTransferDto deathsTransferDto) =>
 // TODO: Implement in future tasks

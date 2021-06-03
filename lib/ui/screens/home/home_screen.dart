@@ -27,7 +27,7 @@ class HomeScreen extends StatelessWidget {
     ScreenWithLabelAndIcon(
       label: AppScreenLabels.FavouritesScreen,
       iconData: AppIconDatas.FavouritesScreen,
-      screen: FavouritesScreen(),
+      screen: FavouritesBlocProvider(),
     ),
   ];
 
