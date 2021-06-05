@@ -24,6 +24,22 @@ class EpisodesChosenEpisode extends EpisodesState {
         );
 }
 
+class EpisodesProcessing extends EpisodesState {
+  const EpisodesProcessing({
+    required EpisodesDisplayedData episodesDisplayedData,
+  }) : super(
+          episodesDisplayedData: episodesDisplayedData,
+        );
+}
+
+class EpisodesFinishedProcessing extends EpisodesState {
+  const EpisodesFinishedProcessing({
+    required EpisodesDisplayedData episodesDisplayedData,
+  }) : super(
+          episodesDisplayedData: episodesDisplayedData,
+        );
+}
+
 class EpisodesLoadedEpisode extends EpisodesState {
   final EpisodesTransferDto episodesTransferDto;
 

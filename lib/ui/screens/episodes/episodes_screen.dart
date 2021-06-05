@@ -37,13 +37,13 @@ class _EpisodesScreenState extends State<EpisodesScreen> {
       );
 
   _buildListener(BuildContext context, EpisodesState state) {
-    if (state is EpisodesInitial) {
+    if (state is EpisodesInitial || state is EpisodesFinishedProcessing) {
       LoadingUtility.finishLoading(context);
-    } else if (state is EpisodesChooseEpisode) {
+    } else if (state is EpisodesChosenEpisode || state is EpisodesProcessing) {
       LoadingUtility.startLoading(context);
     } else if (state is EpisodesLoadedEpisode) {
       LoadingUtility.finishLoading(context);
-      //_navigateToEpisodeScreen(state.episodesTransferDto);
+      _navigateToEpisodeScreen(state.episodesTransferDto);
     }
   }
 
@@ -73,6 +73,16 @@ class _EpisodesScreenState extends State<EpisodesScreen> {
         ),
       );
 
-  //_navigateToEpisodeScreen(EpisodesTransferDto episodesTransferDto) =>
-  // TODO: Implement in future tasks
+  _navigateToEpisodeScreen(EpisodesTransferDto episodesTransferDto) async {
+    final bool? result = await Navigator.push(
+      context,
+      CupertinoPageRoute(
+        builder: (context) => EpisodeBlocProvider(
+          episodesTransferDto: episodesTransferDto,
+          showOnlyFavourites: _episodesBloc.showOnlyFavourites,
+        ),
+      ),
+    );
+    if (result == true) _episodesBloc.add(EpisodesRefreshFavouriteEpisodes());
+  }
 }

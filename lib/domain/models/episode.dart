@@ -31,19 +31,21 @@ class Episode {
         series: json['series'],
       );
 
-  static addEpisodeToFavourites(
-    int episodeId,
-  ) =>
-      DatabaseUtility.addValue(
+  static Future<void> addEpisodeToFavourites(int episodeId) async =>
+      await DatabaseUtility.addValue(
         episodeId,
         DbTables.FAVOURITE_EPISODES_TABLE,
       );
 
-  static removeEpisodeFromFavourites(int episodeId) =>
-      DatabaseUtility.removeValue(
+  static Future<void> removeEpisodeFromFavourites(int episodeId) async =>
+      await DatabaseUtility.removeValue(
         episodeId,
         DbTables.FAVOURITE_EPISODES_TABLE,
       );
+
+  static Future<bool> checkIfEpisodeInFavourites(int episodeId) async =>
+      await DatabaseUtility.checkIfValueInFavourites(
+          episodeId, DbTables.FAVOURITE_EPISODES_TABLE);
 
   static Future<List<int>> getAllFavouriteEpisodesIds() async =>
       await DatabaseUtility.getValues(

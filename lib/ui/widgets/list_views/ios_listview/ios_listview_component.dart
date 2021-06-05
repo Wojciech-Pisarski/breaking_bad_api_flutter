@@ -14,6 +14,7 @@ class IosListViewComponent extends StatelessWidget {
   @override
   Widget build(BuildContext context) => CupertinoScrollbar(
         child: ListView.separated(
+          physics: BouncingScrollPhysics(),
           shrinkWrap: true,
           separatorBuilder: (context, index) => _buildDivider(index),
           itemBuilder: (context, index) => _buildIosListViewItem(index),

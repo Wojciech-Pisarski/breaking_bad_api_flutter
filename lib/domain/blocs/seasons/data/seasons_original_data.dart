@@ -1,5 +1,5 @@
 import 'package:breaking_bad_api_flutter/domain/models/models.dart';
-import 'package:breaking_bad_api_flutter/ui/strings/app_labels.dart';
+import 'package:breaking_bad_api_flutter/ui/strings/strings.dart';
 import 'data.dart';
 
 class SeasonsOriginalData {
