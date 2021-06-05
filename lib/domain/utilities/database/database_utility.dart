@@ -51,10 +51,10 @@ abstract class DatabaseUtility {
     });
   }
 
-  static addValue(int id, DbTables table) async {
+  static Future<void> addValue(int id, DbTables table) async {
     final databaseObjectId = await _verifyIfValuesIsInDb(id, table);
     if (databaseObjectId == null) {
-      _database.insert(
+      await _database.insert(
         '${DbTablesStrings[table]}',
         {
           'id': null,
@@ -64,14 +64,19 @@ abstract class DatabaseUtility {
     }
   }
 
-  static removeValue(int id, DbTables table) async {
+  static Future<void> removeValue(int id, DbTables table) async {
     final databaseObject = await _verifyIfValuesIsInDb(id, table);
     if (databaseObject != null) {
-      _database.delete(
+      await _database.delete(
         '${DbTablesStrings[table]}',
         where: '${DbColumnsStrings[table]} = ?',
         whereArgs: [id],
       );
     }
+  }
+
+  static checkIfValueInFavourites(int id, DbTables table) async {
+    final databaseObject = await _verifyIfValuesIsInDb(id, table);
+    return databaseObject != null;
   }
 }

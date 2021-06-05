@@ -43,7 +43,9 @@ class EpisodesBloc extends Bloc<EpisodesEvent, EpisodesState> {
       yield _chosenEpisode();
       _episodesOriginalData.episode = _episodesOriginalData.episodes
           .firstWhere((element) => element.id == event.episodeId);
-      yield _loadedEpisode();
+      final bool isAddedToFavourites =
+          await Episode.checkIfEpisodeInFavourites(event.episodeId);
+      yield _loadedEpisode(isAddedToFavourites);
     }
   }
 
@@ -51,9 +53,11 @@ class EpisodesBloc extends Bloc<EpisodesEvent, EpisodesState> {
         episodesDisplayedData: _episodesOriginalData.convertToDisplayedData(),
       );
 
-  EpisodesLoadedEpisode _loadedEpisode() => EpisodesLoadedEpisode(
+  EpisodesLoadedEpisode _loadedEpisode(bool isAddedToFavourites) =>
+      EpisodesLoadedEpisode(
         episodesTransferDto: EpisodesTransferDto(
           episode: _episodesOriginalData.episode,
+          isAddedToFavourites: isAddedToFavourites,
         ),
         episodesDisplayedData: _episodesOriginalData.convertToDisplayedData(),
       );
