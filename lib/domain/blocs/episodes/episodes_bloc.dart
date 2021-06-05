@@ -4,6 +4,7 @@ import 'package:breaking_bad_api_flutter/domain/domain.dart';
 class EpisodesBloc extends Bloc<EpisodesEvent, EpisodesState> {
   EpisodesOriginalData _episodesOriginalData;
   bool _showOnlyFavourites;
+  bool get showOnlyFavourites => _showOnlyFavourites;
 
   EpisodesBloc({
     SeasonsTransferDto? seasonsTransferDto,
@@ -32,6 +33,9 @@ class EpisodesBloc extends Bloc<EpisodesEvent, EpisodesState> {
   @override
   Stream<EpisodesState> mapEventToState(EpisodesEvent event) async* {
     if (event is EpisodesRefreshFavouriteEpisodes && _showOnlyFavourites) {
+      yield EpisodesProcessing(
+          episodesDisplayedData:
+              _episodesOriginalData.convertToDisplayedData());
       final List<int> favEpisodesIds =
           await Episode.getAllFavouriteEpisodesIds();
       final List<Map<String, dynamic>> favEpisodesData =
@@ -39,6 +43,9 @@ class EpisodesBloc extends Bloc<EpisodesEvent, EpisodesState> {
       final List<Episode> favEpisodes =
           await Episode.getEpisodesFromEpisodesDataList(favEpisodesData);
       _episodesOriginalData = EpisodesOriginalData(episodes: favEpisodes);
+      yield EpisodesFinishedProcessing(
+          episodesDisplayedData:
+              _episodesOriginalData.convertToDisplayedData());
     } else if (event is EpisodesChooseEpisode) {
       yield _chosenEpisode();
       _episodesOriginalData.episode = _episodesOriginalData.episodes

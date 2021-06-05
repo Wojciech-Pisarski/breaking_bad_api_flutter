@@ -3,9 +3,12 @@ import 'package:breaking_bad_api_flutter/domain/domain.dart';
 
 class EpisodeBloc extends Bloc<EpisodeEvent, EpisodeState> {
   EpisodeOriginalData _episodeOriginalData;
+  bool _shouldRefreshFavouriteEpisodes;
+  bool get shouldRefreshFavouriteEpisodes => _shouldRefreshFavouriteEpisodes;
 
   EpisodeBloc(EpisodesTransferDto episodesTransferDto)
-      : _episodeOriginalData =
+      : _shouldRefreshFavouriteEpisodes = false,
+        _episodeOriginalData =
             EpisodeOriginalData.fromEpisodesTransferDto(episodesTransferDto),
         super(_emitInitialState(episodesTransferDto));
 
@@ -19,23 +22,22 @@ class EpisodeBloc extends Bloc<EpisodeEvent, EpisodeState> {
 
   @override
   Stream<EpisodeState> mapEventToState(EpisodeEvent event) async* {
-    if (event is EpisodeAddToFavourites) {
+    if (event is EpisodeAddOrRemoveFromFavourites) {
       yield _processing();
-      await Episode.addEpisodeToFavourites(_episodeOriginalData.episode.id);
+      _shouldRefreshFavouriteEpisodes = !_shouldRefreshFavouriteEpisodes;
+      final int episodeId = _episodeOriginalData.episode.id;
+      final bool isSavedInFavourites =
+          await Episode.checkIfEpisodeInFavourites(episodeId);
+      isSavedInFavourites
+          ? await Episode.removeEpisodeFromFavourites(episodeId)
+          : await Episode.addEpisodeToFavourites(episodeId);
       _episodeOriginalData = EpisodeOriginalData(
         episode: _episodeOriginalData.episode,
-        isAddedToFavourites: true,
+        isAddedToFavourites: !isSavedInFavourites,
       );
-      yield _addedToFavouritesEpisode();
-    } else if (event is EpisodeRemoveFromFavourites) {
-      yield _processing();
-      await Episode.removeEpisodeFromFavourites(
-          _episodeOriginalData.episode.id);
-      _episodeOriginalData = EpisodeOriginalData(
-        episode: _episodeOriginalData.episode,
-        isAddedToFavourites: false,
-      );
-      yield _removedFromFavouritesEpisode();
+      yield isSavedInFavourites
+          ? _removedFromFavouritesEpisode()
+          : _addedToFavouritesEpisode();
     }
   }
 

@@ -1,6 +1,7 @@
 import 'package:breaking_bad_api_flutter/domain/blocs/blocs.dart';
 import 'package:breaking_bad_api_flutter/domain/models/models.dart';
 import 'package:breaking_bad_api_flutter/ui/strings/strings.dart';
+import 'package:breaking_bad_api_flutter/ui/ui.dart';
 
 class EpisodeOriginalData {
   final Episode episode;
@@ -17,22 +18,21 @@ class EpisodeOriginalData {
         isAddedToFavourites = episodesTransferDto.isAddedToFavourites;
 
   EpisodeDisplayedData convertToDisplayedData() => EpisodeDisplayedData(
-        episodeDetailsToDisplay: episode
-            ._convertEpisodeToDisplayedEpisodeDetails(isAddedToFavourites),
-      );
-}
-
-extension on Episode {
-  EpisodeDetailsToDisplay _convertEpisodeToDisplayedEpisodeDetails(
-          bool isAddedToFavourites) =>
-      EpisodeDetailsToDisplay(
-        name: this.title,
-        season: this.season,
-        episode: this.episode,
-        airDate: this.airDate,
-        characters: this.characters,
-        favouritesButtonLabel: isAddedToFavourites == true
+        name: episode.title,
+        season: episode.season,
+        episode: episode.episode,
+        airDate: episode.airDate,
+        characters: episode.characters.convertToString(),
+        favouritesButtonLabel: isAddedToFavourites == false
             ? AppLabels.AddToFavourites
             : AppLabels.RemoveFromFavourites,
       );
+}
+
+extension on List<String> {
+  String convertToString() {
+    String string = "";
+    this.forEach((element) => string += "\n$element");
+    return string.trim();
+  }
 }

@@ -75,7 +75,7 @@ abstract class DatabaseUtility {
     }
   }
 
-  static checkIfValueInFavourites(int id, DbTables table) async {
+  static Future<bool> checkIfValueInFavourites(int id, DbTables table) async {
     final databaseObject = await _verifyIfValuesIsInDb(id, table);
     return databaseObject != null;
   }
