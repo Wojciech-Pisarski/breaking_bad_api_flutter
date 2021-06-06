@@ -36,14 +36,17 @@ class _CharactersScreenState extends State<CharactersScreen> {
       );
 
   _buildListener(BuildContext context, CharactersState state) {
-    if (state is CharactersInitial || state is CharactersChosenCharacter) {
+    if (state is CharactersInitial ||
+        state is CharactersChosenCharacter ||
+        state is CharactersProcessing) {
       LoadingUtility.startLoading(context);
     } else if (state is CharactersInitialFinished ||
-        state is CharactersInitialFromFavouritesDto) {
+        state is CharactersInitialFromFavouritesDto ||
+        state is CharactersFinishedProcessing) {
       LoadingUtility.finishLoading(context);
     } else if (state is CharactersLoadedCharacter) {
       LoadingUtility.finishLoading(context);
-      //_navigateToCharacterScreen(state.charactersTransferDto);
+      _navigateToCharacterScreen(state.charactersTransferDto);
     }
   }
 
@@ -73,6 +76,17 @@ class _CharactersScreenState extends State<CharactersScreen> {
         ),
       );
 
-  //_navigateToCharacterScreen(CharactersTransferDto charactersTransferDto) =>
-  // TODO: Implement in future tasks
+  _navigateToCharacterScreen(
+      CharactersTransferDto charactersTransferDto) async {
+    final bool? result = await Navigator.push(
+      context,
+      CupertinoPageRoute(
+        builder: (context) => CharacterBlocProvider(
+          charactersTransferDto: charactersTransferDto,
+          showOnlyFavourites: _charactersBloc.showOnlyFavourites,
+        ),
+      ),
+    );
+    if (result == true) _charactersBloc.add(CharactersRefreshCharacters());
+  }
 }

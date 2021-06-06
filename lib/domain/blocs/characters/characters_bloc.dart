@@ -5,6 +5,7 @@ import 'package:breaking_bad_api_flutter/domain/domain.dart';
 class CharactersBloc extends Bloc<CharactersEvent, CharactersState> {
   late CharactersOriginalData _charactersOriginalData;
   bool _showOnlyFavourites;
+  bool get showOnlyFavourites => _showOnlyFavourites;
 
   CharactersBloc({
     FavouritesTransferDto? favouritesTransferDto,
@@ -28,6 +29,9 @@ class CharactersBloc extends Bloc<CharactersEvent, CharactersState> {
   Stream<CharactersState> mapEventToState(CharactersEvent event) async* {
     if (event is CharactersRefreshCharacters) {
       if (_showOnlyFavourites) {
+        yield CharactersProcessing(
+            charactersDisplayedData:
+                _charactersOriginalData.convertToDisplayedData());
         final List<int> favCharactersIds =
             await Character.getAllFavouriteCharactersIds();
         final List<Map<String, dynamic>> favCharactersData =
@@ -36,6 +40,9 @@ class CharactersBloc extends Bloc<CharactersEvent, CharactersState> {
             Character.getCharactersFromCharactersData(favCharactersData);
         _charactersOriginalData =
             CharactersOriginalData(characters: favCharacters);
+        yield CharactersFinishedProcessing(
+            charactersDisplayedData:
+                _charactersOriginalData.convertToDisplayedData());
       } else {
         yield _initial();
         var charactersData = await Character.getAllCharactersData();
