@@ -29,6 +29,10 @@ class Quote {
         DbTables.FAVOURITE_QUOTES_TABLE,
       );
 
+  static Future<bool> checkIfQuoteInFavourites(int quoteId) async =>
+      await DatabaseUtility.checkIfValueInFavourites(
+          quoteId, DbTables.FAVOURITE_QUOTES_TABLE);
+
   static Future<List<int>> getAllFavouriteQuotesIds() async =>
       await DatabaseUtility.getValues(
         DbTables.FAVOURITE_QUOTES_TABLE,

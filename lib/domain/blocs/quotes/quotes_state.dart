@@ -17,6 +17,22 @@ class QuotesInitial extends QuotesState {
         );
 }
 
+class QuotesProcessing extends QuotesState {
+  const QuotesProcessing({
+    required QuotesDisplayedData quotesDisplayedData,
+  }) : super(
+          quotesDisplayedData: quotesDisplayedData,
+        );
+}
+
+class QuotesFinishedProcessing extends QuotesState {
+  const QuotesFinishedProcessing({
+    required QuotesDisplayedData quotesDisplayedData,
+  }) : super(
+          quotesDisplayedData: quotesDisplayedData,
+        );
+}
+
 class QuotesInitialFromFavouritesDto extends QuotesState {
   const QuotesInitialFromFavouritesDto({
     required QuotesDisplayedData quotesDisplayedData,

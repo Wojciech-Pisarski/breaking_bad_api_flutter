@@ -5,16 +5,14 @@ import '../character.dart';
 
 class CharacterBlocProvider extends StatelessWidget {
   final CharactersTransferDto charactersTransferDto;
-  final bool showOnlyFavourites;
 
   const CharacterBlocProvider({
     required this.charactersTransferDto,
-    required this.showOnlyFavourites,
   });
 
   @override
   Widget build(BuildContext context) => BlocProvider(
         create: (context) => CharacterBloc(charactersTransferDto),
-        child: CharacterScreen(showOnlyFavourites),
+        child: CharacterScreen(),
       );
 }

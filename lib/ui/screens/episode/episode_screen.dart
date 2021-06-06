@@ -6,9 +6,7 @@ import 'package:breaking_bad_api_flutter/domain/utilities/loading/loading_utilit
 import 'package:breaking_bad_api_flutter/ui/ui.dart';
 
 class EpisodeScreen extends StatefulWidget {
-  final bool showOnlyFavourites;
-
-  const EpisodeScreen(this.showOnlyFavourites);
+  const EpisodeScreen();
   @override
   _EpisodeScreenState createState() => _EpisodeScreenState();
 }

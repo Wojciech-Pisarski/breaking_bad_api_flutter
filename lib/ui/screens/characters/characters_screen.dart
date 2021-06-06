@@ -81,10 +81,8 @@ class _CharactersScreenState extends State<CharactersScreen> {
     final bool? result = await Navigator.push(
       context,
       CupertinoPageRoute(
-        builder: (context) => CharacterBlocProvider(
-          charactersTransferDto: charactersTransferDto,
-          showOnlyFavourites: _charactersBloc.showOnlyFavourites,
-        ),
+        builder: (context) =>
+            CharacterBlocProvider(charactersTransferDto: charactersTransferDto),
       ),
     );
     if (result == true) _charactersBloc.add(CharactersRefreshCharacters());

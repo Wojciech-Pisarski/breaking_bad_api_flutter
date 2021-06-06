@@ -77,10 +77,8 @@ class _EpisodesScreenState extends State<EpisodesScreen> {
     final bool? result = await Navigator.push(
       context,
       CupertinoPageRoute(
-        builder: (context) => EpisodeBlocProvider(
-          episodesTransferDto: episodesTransferDto,
-          showOnlyFavourites: _episodesBloc.showOnlyFavourites,
-        ),
+        builder: (context) =>
+            EpisodeBlocProvider(episodesTransferDto: episodesTransferDto),
       ),
     );
     if (result == true) _episodesBloc.add(EpisodesRefreshFavouriteEpisodes());

@@ -5,9 +5,6 @@ import 'package:breaking_bad_api_flutter/ui/ui.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class QuotesScreen extends StatefulWidget {
-  final FavouritesTransferDto? favouritesTransferDto;
-
-  const QuotesScreen({this.favouritesTransferDto});
   @override
   _QuotesScreenState createState() => _QuotesScreenState();
 }
@@ -39,13 +36,17 @@ class _QuotesScreenState extends State<QuotesScreen> {
       );
 
   _buildListener(BuildContext context, QuotesState state) {
-    if (state is QuotesInitial || state is QuotesChosenQuote) {
+    if (state is QuotesInitial ||
+        state is QuotesChosenQuote ||
+        state is QuotesProcessing) {
       LoadingUtility.startLoading(context);
-    } else if (state is QuotesInitialFinished) {
+    } else if (state is QuotesInitialFinished ||
+        state is QuotesInitialFromFavouritesDto ||
+        state is QuotesFinishedProcessing) {
       LoadingUtility.finishLoading(context);
     } else if (state is QuotesLoadedQuote) {
       LoadingUtility.finishLoading(context);
-      //_navigateToQuoteScreen(state.quotesTransferDto);
+      _navigateToQuoteScreen(state.quotesTransferDto);
     }
   }
 
@@ -75,6 +76,14 @@ class _QuotesScreenState extends State<QuotesScreen> {
         ),
       );
 
-//_navigateToQuoteScreen(QuotesTransferDto quotesTransferDto) =>
-// TODO: Implement in future tasks
+  _navigateToQuoteScreen(QuotesTransferDto quotesTransferDto) async {
+    final bool? result = await Navigator.push(
+      context,
+      CupertinoPageRoute(
+        builder: (context) =>
+            QuoteBlocProvider(quotesTransferDto: quotesTransferDto),
+      ),
+    );
+    if (result == true) _quotesBloc.add(QuotesRefreshQuotes());
+  }
 }
