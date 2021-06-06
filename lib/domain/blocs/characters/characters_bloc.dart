@@ -5,6 +5,7 @@ import 'package:breaking_bad_api_flutter/domain/domain.dart';
 class CharactersBloc extends Bloc<CharactersEvent, CharactersState> {
   late CharactersOriginalData _charactersOriginalData;
   bool _showOnlyFavourites;
+  bool get showOnlyFavourites => _showOnlyFavourites;
 
   CharactersBloc({
     FavouritesTransferDto? favouritesTransferDto,
@@ -28,6 +29,9 @@ class CharactersBloc extends Bloc<CharactersEvent, CharactersState> {
   Stream<CharactersState> mapEventToState(CharactersEvent event) async* {
     if (event is CharactersRefreshCharacters) {
       if (_showOnlyFavourites) {
+        yield CharactersProcessing(
+            charactersDisplayedData:
+                _charactersOriginalData.convertToDisplayedData());
         final List<int> favCharactersIds =
             await Character.getAllFavouriteCharactersIds();
         final List<Map<String, dynamic>> favCharactersData =
@@ -36,6 +40,9 @@ class CharactersBloc extends Bloc<CharactersEvent, CharactersState> {
             Character.getCharactersFromCharactersData(favCharactersData);
         _charactersOriginalData =
             CharactersOriginalData(characters: favCharacters);
+        yield CharactersFinishedProcessing(
+            charactersDisplayedData:
+                _charactersOriginalData.convertToDisplayedData());
       } else {
         yield _initial();
         var charactersData = await Character.getAllCharactersData();
@@ -48,7 +55,9 @@ class CharactersBloc extends Bloc<CharactersEvent, CharactersState> {
       yield _chosenCharacter();
       _charactersOriginalData.character = _charactersOriginalData.characters
           .firstWhere((element) => element.id == event.characterId);
-      yield _loadedCharacter();
+      final bool isAddedToFavourites =
+          await Character.checkIfCharacterInFavourites(event.characterId);
+      yield _loadedCharacter(isAddedToFavourites);
     }
   }
 
@@ -64,9 +73,11 @@ class CharactersBloc extends Bloc<CharactersEvent, CharactersState> {
             _charactersOriginalData.convertToDisplayedData(),
       );
 
-  CharactersLoadedCharacter _loadedCharacter() => CharactersLoadedCharacter(
+  CharactersLoadedCharacter _loadedCharacter(bool isAddedToFavourites) =>
+      CharactersLoadedCharacter(
         charactersTransferDto: CharactersTransferDto(
-          characters: _charactersOriginalData.characters,
+          character: _charactersOriginalData.character,
+          isAddedToFavourites: isAddedToFavourites,
         ),
         charactersDisplayedData:
             _charactersOriginalData.convertToDisplayedData(),

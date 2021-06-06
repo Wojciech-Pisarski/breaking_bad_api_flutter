@@ -19,6 +19,22 @@ class CharactersInitial extends CharactersState {
         );
 }
 
+class CharactersProcessing extends CharactersState {
+  const CharactersProcessing({
+    required CharactersDisplayedData charactersDisplayedData,
+  }) : super(
+          charactersDisplayedData: charactersDisplayedData,
+        );
+}
+
+class CharactersFinishedProcessing extends CharactersState {
+  const CharactersFinishedProcessing({
+    required CharactersDisplayedData charactersDisplayedData,
+  }) : super(
+          charactersDisplayedData: charactersDisplayedData,
+        );
+}
+
 class CharactersInitialFromFavouritesDto extends CharactersState {
   const CharactersInitialFromFavouritesDto({
     required CharactersDisplayedData charactersDisplayedData,

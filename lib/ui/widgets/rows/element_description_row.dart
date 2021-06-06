@@ -42,7 +42,7 @@ class ElementDescriptionRow extends StatelessWidget {
 
   Text _buildContentText() => Text(
         content,
-        textAlign: TextAlign.center,
+        textAlign: TextAlign.end,
         style: TextStyle(
           fontSize: 20,
         ),

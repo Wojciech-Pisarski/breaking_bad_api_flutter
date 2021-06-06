@@ -8,4 +8,5 @@ abstract class AppIconDatas {
   static const IconData QuotesScreen = CupertinoIcons.quote_bubble;
   static const IconData SeasonsScreen = CupertinoIcons.play_rectangle;
   static const IconData ChevronForward = CupertinoIcons.chevron_forward;
+  static const IconData Error = CupertinoIcons.multiply;
 }

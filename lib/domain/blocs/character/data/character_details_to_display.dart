@@ -1,12 +1,12 @@
-class EpisodeDisplayedData {
+class CharacterDetailsToDisplay {
   final String name;
   final String season;
   final String episode;
   final String airDate;
-  final String characters;
+  final List<String> characters;
   final String favouritesButtonLabel;
 
-  const EpisodeDisplayedData({
+  const CharacterDetailsToDisplay({
     required this.name,
     required this.season,
     required this.episode,
