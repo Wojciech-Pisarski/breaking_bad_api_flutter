@@ -5,16 +5,14 @@ import '../episode.dart';
 
 class EpisodeBlocProvider extends StatelessWidget {
   final EpisodesTransferDto episodesTransferDto;
-  final bool showOnlyFavourites;
 
   const EpisodeBlocProvider({
     required this.episodesTransferDto,
-    required this.showOnlyFavourites,
   });
 
   @override
   Widget build(BuildContext context) => BlocProvider(
         create: (context) => EpisodeBloc(episodesTransferDto),
-        child: EpisodeScreen(showOnlyFavourites),
+        child: EpisodeScreen(),
       );
 }

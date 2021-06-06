@@ -25,12 +25,16 @@ class QuotesBloc extends Bloc<QuotesEvent, QuotesState> {
   Stream<QuotesState> mapEventToState(QuotesEvent event) async* {
     if (event is QuotesRefreshQuotes) {
       if (_showOnlyFavourites) {
+        yield QuotesProcessing(
+            quotesDisplayedData: _quotesOriginalData.convertToDisplayedData());
         final List<int> favQuotesIds = await Quote.getAllFavouriteQuotesIds();
         final List<Map<String, dynamic>> favQuotesData =
             await Quote.getQuotesDataFromIds(favQuotesIds);
         final List<Quote> favQuotes =
             Quote.getQuotesFromQuotesData(favQuotesData);
         _quotesOriginalData = QuotesOriginalData(quotes: favQuotes);
+        yield QuotesFinishedProcessing(
+            quotesDisplayedData: _quotesOriginalData.convertToDisplayedData());
       } else {
         yield _initial();
         var quotesData = await Quote.getAllQuotesData();

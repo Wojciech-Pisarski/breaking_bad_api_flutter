@@ -7,9 +7,7 @@ import 'package:breaking_bad_api_flutter/domain/utilities/loading/loading_utilit
 import 'package:breaking_bad_api_flutter/ui/ui.dart';
 
 class CharacterScreen extends StatefulWidget {
-  final bool showOnlyFavourites;
-
-  const CharacterScreen(this.showOnlyFavourites);
+  const CharacterScreen();
   @override
   _CharacterScreenState createState() => _CharacterScreenState();
 }
@@ -77,24 +75,15 @@ class _CharacterScreenState extends State<CharacterScreen> {
         ),
       );
 
-  Widget _buildNameLabel(String label) =>
-      /*Container(
-        height: 200,
-        child:*/
-      Center(
+  Widget _buildNameLabel(String label) => Center(
         child: Text(
           label,
           textAlign: TextAlign.center,
           style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
         ),
-        // ),
       );
 
-  Widget _buildStatusLabel(String label) =>
-      /*Container(
-        height: 200,
-        child:*/
-      Center(
+  Widget _buildStatusLabel(String label) => Center(
         child: Text(
           label,
           textAlign: TextAlign.center,
@@ -103,7 +92,6 @@ class _CharacterScreenState extends State<CharacterScreen> {
             //fontWeight: FontWeight.bold
           ),
         ),
-        // ),
       );
 
   Column _buildCharacterDescription(
