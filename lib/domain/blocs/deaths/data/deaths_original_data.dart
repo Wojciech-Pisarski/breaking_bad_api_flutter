@@ -14,14 +14,17 @@ class DeathsOriginalData {
   });
 
   DeathsDisplayedData convertToDisplayedData() => DeathsDisplayedData(
-        deathsToDisplay:
-            deaths.map(_convertDeathToDisplayedDeath).toList(),
+        deathsToDisplay: deaths.map(convertDeathToDisplayedDeath).toList(),
       );
 
-  DeathToDisplay _convertDeathToDisplayedDeath(
-          Death death) =>
-      DeathToDisplay(
+  DeathToDisplay convertDeathToDisplayedDeath(Death death) => DeathToDisplay(
         id: death.id,
-        label: '${death.death}',
+        death: death.death,
+        cause: death.cause,
+        responsible: death.responsible,
+        lastWords: death.lastWords,
+        season: death.season.toString(),
+        episode: death.episode.toString(),
+        numberOfDeaths: death.numberOfDeaths.toString(),
       );
 }

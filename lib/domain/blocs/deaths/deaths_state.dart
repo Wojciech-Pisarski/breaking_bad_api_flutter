@@ -11,7 +11,7 @@ class DeathsState {
 class DeathsInitial extends DeathsState {
   const DeathsInitial()
       : super(
-    deathsDisplayedData: const DeathsDisplayedData(
+          deathsDisplayedData: const DeathsDisplayedData(
             deathsToDisplay: <DeathToDisplay>[],
           ),
         );
@@ -35,9 +35,11 @@ class DeathsChosenDeath extends DeathsState {
 
 class DeathsLoadedDeath extends DeathsState {
   final DeathsTransferDto deathsTransferDto;
+  final DeathToDisplay deathToDisplay;
 
   const DeathsLoadedDeath({
     required this.deathsTransferDto,
+    required this.deathToDisplay,
     required DeathsDisplayedData deathsDisplayedData,
   }) : super(
           deathsDisplayedData: deathsDisplayedData,

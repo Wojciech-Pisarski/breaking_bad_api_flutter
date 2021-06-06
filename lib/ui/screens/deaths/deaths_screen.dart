@@ -42,7 +42,7 @@ class _DeathsScreenState extends State<DeathsScreen> {
       LoadingUtility.finishLoading(context);
     } else if (state is DeathsLoadedDeath) {
       LoadingUtility.finishLoading(context);
-      //_navigateToDeathScreen(state.deathsTransferDto);
+      _navigateToDeathScreen(state.deathToDisplay);
     }
   }
 
@@ -59,7 +59,7 @@ class _DeathsScreenState extends State<DeathsScreen> {
       iosListViewItemDataList.add(
         IosListViewItemData(
           id: item.id,
-          label: item.label,
+          label: item.death,
         ),
       );
     }
@@ -72,6 +72,9 @@ class _DeathsScreenState extends State<DeathsScreen> {
         ),
       );
 
-//_navigateToDeathScreen(DeathsTransferDto deathsTransferDto) =>
-// TODO: Implement in future tasks
+  _navigateToDeathScreen(DeathToDisplay deathToDisplay) => Navigator.push(
+      context,
+      CupertinoPageRoute(
+        builder: (context) => DeathScreen(deathToDisplay),
+      ));
 }

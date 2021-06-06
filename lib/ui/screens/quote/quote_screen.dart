@@ -41,7 +41,7 @@ class _QuoteScreenState extends State<QuoteScreen> {
       );
 
   CupertinoNavigationBar _buildCupertinoNavigationBar() =>
-      CupertinoNavigationBar(middle: Text(AppScreenLabels.EpisodeScreen));
+      CupertinoNavigationBar(middle: Text(AppScreenLabels.QuotesScreen));
 
   _buildListener(BuildContext context, QuoteState state) {
     if (state is QuoteAddedToFavourites ||
