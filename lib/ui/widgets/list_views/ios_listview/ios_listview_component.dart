@@ -43,10 +43,12 @@ class IosListViewComponent extends StatelessWidget {
     if (index == 0 || index == itemsData.length - 1) {
       return Column(
         children: [
-          if (index == 0 && index != itemsData.length - 1)
+          if (index == 0 && index != itemsData.length - 1 ||
+              itemsData.length == 1)
             _buildTopIosListViewRow(),
           iosListViewRow,
-          if (index == itemsData.length - 1 && index != 0)
+          if (index == itemsData.length - 1 && index != 0 ||
+              itemsData.length == 1)
             _buildBottomIosListViewRow(),
         ],
       );
