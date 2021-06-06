@@ -5,5 +5,6 @@ export 'episode/episode.dart';
 export 'episodes/episodes.dart';
 export 'favourites/favourites.dart';
 export 'loading/loading.dart';
+export 'quote/quote.dart';
 export 'quotes/quotes.dart';
 export 'seasons/seasons.dart';

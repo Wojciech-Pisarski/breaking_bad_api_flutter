@@ -43,7 +43,9 @@ class QuotesBloc extends Bloc<QuotesEvent, QuotesState> {
       yield _chosenQuote();
       _quotesOriginalData.quote = _quotesOriginalData.quotes
           .firstWhere((element) => element.id == event.quoteId);
-      yield _loadedQuote();
+      final bool isAddedToFavourites =
+          await Quote.checkIfQuoteInFavourites(event.quoteId);
+      yield _loadedQuote(isAddedToFavourites);
     }
   }
 
@@ -57,9 +59,10 @@ class QuotesBloc extends Bloc<QuotesEvent, QuotesState> {
         quotesDisplayedData: _quotesOriginalData.convertToDisplayedData(),
       );
 
-  QuotesLoadedQuote _loadedQuote() => QuotesLoadedQuote(
+  QuotesLoadedQuote _loadedQuote(bool isAddedToFavourite) => QuotesLoadedQuote(
         quotesTransferDto: QuotesTransferDto(
-          quotes: _quotesOriginalData.quotes,
+          quote: _quotesOriginalData.quote,
+          isAddedToFavourites: isAddedToFavourite,
         ),
         quotesDisplayedData: _quotesOriginalData.convertToDisplayedData(),
       );
