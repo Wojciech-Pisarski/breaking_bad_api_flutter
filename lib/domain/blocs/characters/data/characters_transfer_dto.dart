@@ -1,9 +1,11 @@
 import 'package:breaking_bad_api_flutter/domain/domain.dart';
 
 class CharactersTransferDto {
-  final List<Character> characters;
+  final Character character;
+  final bool isAddedToFavourites;
 
   const CharactersTransferDto({
-    required this.characters,
+    required this.character,
+    required this.isAddedToFavourites,
   });
 }

@@ -48,7 +48,9 @@ class CharactersBloc extends Bloc<CharactersEvent, CharactersState> {
       yield _chosenCharacter();
       _charactersOriginalData.character = _charactersOriginalData.characters
           .firstWhere((element) => element.id == event.characterId);
-      yield _loadedCharacter();
+      final bool isAddedToFavourites =
+          await Character.checkIfCharacterInFavourites(event.characterId);
+      yield _loadedCharacter(isAddedToFavourites);
     }
   }
 
@@ -64,9 +66,11 @@ class CharactersBloc extends Bloc<CharactersEvent, CharactersState> {
             _charactersOriginalData.convertToDisplayedData(),
       );
 
-  CharactersLoadedCharacter _loadedCharacter() => CharactersLoadedCharacter(
+  CharactersLoadedCharacter _loadedCharacter(bool isAddedToFavourites) =>
+      CharactersLoadedCharacter(
         charactersTransferDto: CharactersTransferDto(
-          characters: _charactersOriginalData.characters,
+          character: _charactersOriginalData.character,
+          isAddedToFavourites: isAddedToFavourites,
         ),
         charactersDisplayedData:
             _charactersOriginalData.convertToDisplayedData(),

@@ -49,6 +49,10 @@ class Character {
         DbTables.FAVOURITE_CHARACTERS_TABLE,
       );
 
+  static Future<bool> checkIfCharacterInFavourites(int characterId) async =>
+      await DatabaseUtility.checkIfValueInFavourites(
+          characterId, DbTables.FAVOURITE_CHARACTERS_TABLE);
+
   static Future<List<int>> getAllFavouriteCharactersIds() async =>
       await DatabaseUtility.getValues(
         DbTables.FAVOURITE_CHARACTERS_TABLE,
