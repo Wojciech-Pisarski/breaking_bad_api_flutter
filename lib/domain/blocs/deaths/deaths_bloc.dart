@@ -26,20 +26,19 @@ class DeathsBloc extends Bloc<DeathsEvent, DeathsState> {
   DeathsInitial _initial() => DeathsInitial();
 
   DeathsInitialFinished _initialFinished() => DeathsInitialFinished(
-        deathsDisplayedData:
-            _deathsOriginalData.convertToDisplayedData(),
+        deathsDisplayedData: _deathsOriginalData.convertToDisplayedData(),
       );
 
   DeathsChosenDeath _chosenDeath() => DeathsChosenDeath(
-        deathsDisplayedData:
-            _deathsOriginalData.convertToDisplayedData(),
+        deathsDisplayedData: _deathsOriginalData.convertToDisplayedData(),
       );
 
   DeathsLoadedDeath _loadedDeath() => DeathsLoadedDeath(
         deathsTransferDto: DeathsTransferDto(
-          deaths: _deathsOriginalData.deaths,
+          deathsDisplayedData: _deathsOriginalData.convertToDisplayedData(),
         ),
-        deathsDisplayedData:
-            _deathsOriginalData.convertToDisplayedData(),
+        deathToDisplay: _deathsOriginalData
+            .convertDeathToDisplayedDeath(_deathsOriginalData.death),
+        deathsDisplayedData: _deathsOriginalData.convertToDisplayedData(),
       );
 }
