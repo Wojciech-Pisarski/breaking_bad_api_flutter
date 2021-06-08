@@ -2,8 +2,9 @@ import 'package:breaking_bad_api_flutter/domain/blocs/blocs.dart';
 import 'package:breaking_bad_api_flutter/domain/models/models.dart';
 import 'package:breaking_bad_api_flutter/ui/strings/strings.dart';
 import 'package:breaking_bad_api_flutter/ui/ui.dart';
+import 'package:equatable/equatable.dart';
 
-class EpisodeOriginalData {
+class EpisodeOriginalData extends Equatable {
   final Episode episode;
   final bool isAddedToFavourites;
 
@@ -27,6 +28,12 @@ class EpisodeOriginalData {
             ? AppLabels.AddToFavourites
             : AppLabels.RemoveFromFavourites,
       );
+
+  @override
+  List<Object?> get props => [
+        episode,
+        isAddedToFavourites,
+      ];
 }
 
 extension on List<String> {

@@ -1,11 +1,16 @@
+import 'package:equatable/equatable.dart';
+
 import 'data/data.dart';
 
-class EpisodesState {
+class EpisodesState extends Equatable {
   final EpisodesDisplayedData episodesDisplayedData;
 
   const EpisodesState({
     required this.episodesDisplayedData,
   });
+
+  @override
+  List<Object?> get props => [episodesDisplayedData];
 }
 
 class EpisodesInitial extends EpisodesState {

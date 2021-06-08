@@ -1,6 +1,7 @@
 import 'package:breaking_bad_api_flutter/domain/domain.dart';
+import 'package:equatable/equatable.dart';
 
-class Death {
+class Death extends Equatable {
   final int id;
   final String death;
   final String cause;
@@ -49,4 +50,16 @@ class Death {
     deathsData.forEach((element) => deaths.add(Death._fromJson(element)));
     return deaths;
   }
+
+  @override
+  List<Object?> get props => [
+        id,
+        death,
+        cause,
+        responsible,
+        lastWords,
+        season,
+        episode,
+        numberOfDeaths,
+      ];
 }

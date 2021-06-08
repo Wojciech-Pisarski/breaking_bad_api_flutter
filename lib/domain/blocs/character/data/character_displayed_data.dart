@@ -1,4 +1,6 @@
-class CharacterDisplayedData {
+import 'package:equatable/equatable.dart';
+
+class CharacterDisplayedData extends Equatable {
   final String imageUrl;
   final String fullName;
   final String status;
@@ -16,4 +18,15 @@ class CharacterDisplayedData {
     required this.portrayed,
     required this.favouritesButtonLabel,
   });
+
+  @override
+  List<Object?> get props => [
+        imageUrl,
+        fullName,
+        status,
+        nickName,
+        birthday,
+        portrayed,
+        favouritesButtonLabel,
+      ];
 }

@@ -1,4 +1,6 @@
-class DeathToDisplay {
+import 'package:equatable/equatable.dart';
+
+class DeathToDisplay extends Equatable {
   final int id;
   final String death;
   final String cause;
@@ -18,4 +20,16 @@ class DeathToDisplay {
     required this.episode,
     required this.numberOfDeaths,
   });
+
+  @override
+  List<Object?> get props => [
+        id,
+        death,
+        cause,
+        responsible,
+        lastWords,
+        season,
+        episode,
+        numberOfDeaths,
+      ];
 }

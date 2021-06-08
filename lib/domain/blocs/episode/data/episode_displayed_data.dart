@@ -1,4 +1,6 @@
-class EpisodeDisplayedData {
+import 'package:equatable/equatable.dart';
+
+class EpisodeDisplayedData extends Equatable {
   final String name;
   final String season;
   final String episode;
@@ -14,4 +16,14 @@ class EpisodeDisplayedData {
     required this.characters,
     required this.favouritesButtonLabel,
   });
+
+  @override
+  List<Object?> get props => [
+        name,
+        season,
+        episode,
+        airDate,
+        characters,
+        favouritesButtonLabel,
+      ];
 }

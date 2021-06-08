@@ -1,6 +1,7 @@
 import 'package:breaking_bad_api_flutter/domain/domain.dart';
+import 'package:equatable/equatable.dart';
 
-class Quote {
+class Quote extends Equatable {
   final int id;
   final String quote;
   final String author;
@@ -69,4 +70,11 @@ class Quote {
     quotesData.forEach((element) => quotes.add(Quote._fromJson(element)));
     return quotes;
   }
+
+  @override
+  List<Object?> get props => [
+        id,
+        quote,
+        author,
+      ];
 }
