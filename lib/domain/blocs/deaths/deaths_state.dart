@@ -1,11 +1,16 @@
+import 'package:equatable/equatable.dart';
+
 import 'data/data.dart';
 
-class DeathsState {
+class DeathsState extends Equatable {
   final DeathsDisplayedData deathsDisplayedData;
 
   const DeathsState({
     required this.deathsDisplayedData,
   });
+
+  @override
+  List<Object?> get props => [deathsDisplayedData];
 }
 
 class DeathsInitial extends DeathsState {

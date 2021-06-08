@@ -1,11 +1,16 @@
+import 'package:equatable/equatable.dart';
+
 import 'data/data.dart';
 
-class QuotesState {
+class QuotesState extends Equatable {
   final QuotesDisplayedData quotesDisplayedData;
 
   const QuotesState({
     required this.quotesDisplayedData,
   });
+
+  @override
+  List<Object?> get props => [quotesDisplayedData];
 }
 
 class QuotesInitial extends QuotesState {

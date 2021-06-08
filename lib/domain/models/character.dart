@@ -1,6 +1,7 @@
 import 'package:breaking_bad_api_flutter/domain/domain.dart';
+import 'package:equatable/equatable.dart';
 
-class Character {
+class Character extends Equatable {
   final int id;
   final String name;
   final String birthday;
@@ -90,4 +91,17 @@ class Character {
         .forEach((element) => characters.add(Character._fromJson(element)));
     return characters;
   }
+
+  @override
+  List<Object?> get props => [
+        id,
+        name,
+        birthday,
+        occupation,
+        img,
+        status,
+        nickname,
+        appearance,
+        portrayed,
+      ];
 }

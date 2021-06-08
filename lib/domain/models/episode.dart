@@ -1,6 +1,7 @@
 import 'package:breaking_bad_api_flutter/domain/domain.dart';
+import 'package:equatable/equatable.dart';
 
-class Episode {
+class Episode extends Equatable {
   final int id;
   final String title;
   final String season;
@@ -107,4 +108,15 @@ class Episode {
     }
     return episodesList;
   }
+
+  @override
+  List<Object?> get props => [
+        id,
+        title,
+        season,
+        episode,
+        airDate,
+        characters,
+        series,
+      ];
 }
