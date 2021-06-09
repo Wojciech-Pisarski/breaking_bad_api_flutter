@@ -1,6 +1,6 @@
 import 'data/data.dart';
 
-class SeasonsState {
+abstract class SeasonsState {
   final SeasonsDisplayedData seasonsDisplayedData;
 
   const SeasonsState({

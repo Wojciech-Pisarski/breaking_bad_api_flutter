@@ -1,4 +1,4 @@
-class EpisodesEvent {
+abstract class EpisodesEvent {
   const EpisodesEvent();
 }
 

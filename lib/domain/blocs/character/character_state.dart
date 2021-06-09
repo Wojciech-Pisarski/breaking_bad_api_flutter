@@ -2,7 +2,7 @@ import 'package:equatable/equatable.dart';
 
 import 'data/data.dart';
 
-class CharacterState extends Equatable {
+abstract class CharacterState extends Equatable {
   final CharacterDisplayedData characterDisplayedData;
 
   const CharacterState({

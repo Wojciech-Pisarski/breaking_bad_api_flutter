@@ -2,7 +2,7 @@ import 'package:breaking_bad_api_flutter/domain/blocs/blocs.dart';
 
 import 'data/data.dart';
 
-class CharactersState {
+abstract class CharactersState {
   final CharactersDisplayedData charactersDisplayedData;
 
   const CharactersState({

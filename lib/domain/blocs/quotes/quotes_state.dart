@@ -2,7 +2,7 @@ import 'package:equatable/equatable.dart';
 
 import 'data/data.dart';
 
-class QuotesState extends Equatable {
+abstract class QuotesState extends Equatable {
   final QuotesDisplayedData quotesDisplayedData;
 
   const QuotesState({
