@@ -35,7 +35,7 @@ class _CharacterScreenState extends State<CharacterScreen> {
             child: BlocConsumer<CharacterBloc, CharacterState>(
               listener: _buildListener,
               builder: (_, state) =>
-                  _buildScreenContent(state.characterDisplayedData),
+                  _buildScreenContent(state.characterDisplayedData, context),
             ),
           ),
         ),
@@ -51,12 +51,13 @@ class _CharacterScreenState extends State<CharacterScreen> {
     }
   }
 
-  Widget _buildScreenContent(CharacterDisplayedData characterDisplayedData) =>
+  Widget _buildScreenContent(CharacterDisplayedData characterDisplayedData,
+          BuildContext context) =>
       ListView(
         physics: BouncingScrollPhysics(),
         shrinkWrap: true,
         children: [
-          _buildCharacterImage(characterDisplayedData.imageUrl),
+          _buildCharacterImage(characterDisplayedData.imageUrl, context),
           _buildNameLabel(characterDisplayedData.fullName),
           _buildStatusLabel(characterDisplayedData.status),
           _buildCharacterDescription(characterDisplayedData),
@@ -64,10 +65,11 @@ class _CharacterScreenState extends State<CharacterScreen> {
         ],
       );
 
-  Widget _buildCharacterImage(String url) => Container(
+  Widget _buildCharacterImage(String url, BuildContext context) => Container(
         margin: EdgeInsets.all(Paddings.iosNormalPadding),
         child: CachedNetworkImage(
-          height: 350,
+          height: MediaQuery.of(context).size.height *
+              ComponentDimensions.characterImageHeightRatio,
           errorWidget: (context, url, error) => Icon(AppIconDatas.Error),
           fadeOutCurve: Curves.easeIn,
           placeholder: (_, __) => CupertinoActivityIndicator(),
