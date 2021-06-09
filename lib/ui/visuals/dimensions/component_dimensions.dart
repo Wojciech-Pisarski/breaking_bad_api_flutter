@@ -6,4 +6,5 @@ abstract class ComponentDimensions {
   static const double iosListViewDividerIndentHeight = Paddings.iosSmallPadding;
   static const double iosListViewItemWithNoIconHorizontalIndent =
       iosListViewIconSize + Paddings.iosNormalPadding;
+  static const double characterImageHeightRatio = 0.5;
 }
