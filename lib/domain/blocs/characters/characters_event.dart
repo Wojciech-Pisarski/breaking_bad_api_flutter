@@ -1,4 +1,4 @@
-class CharactersEvent {
+abstract class CharactersEvent {
   const CharactersEvent();
 }
 

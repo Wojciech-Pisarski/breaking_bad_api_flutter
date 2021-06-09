@@ -1,4 +1,4 @@
-class LoadingEvent {}
+abstract class LoadingEvent {}
 
 class LoadingStart extends LoadingEvent {}
 

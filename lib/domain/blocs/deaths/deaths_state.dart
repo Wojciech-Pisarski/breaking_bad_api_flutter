@@ -2,7 +2,7 @@ import 'package:equatable/equatable.dart';
 
 import 'data/data.dart';
 
-class DeathsState extends Equatable {
+abstract class DeathsState extends Equatable {
   final DeathsDisplayedData deathsDisplayedData;
 
   const DeathsState({

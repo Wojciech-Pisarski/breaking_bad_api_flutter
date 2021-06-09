@@ -1,3 +1,3 @@
-class QuoteEvent {}
+abstract class QuoteEvent {}
 
 class QuoteAddOrRemoveFromFavourites extends QuoteEvent {}
