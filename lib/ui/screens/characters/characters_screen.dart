@@ -33,6 +33,15 @@ class _CharactersScreenState extends State<CharactersScreen> {
   CupertinoNavigationBar _buildCupertinoNavigationBar() =>
       CupertinoNavigationBar(
         middle: Text(AppScreenLabels.CharactersScreen),
+        trailing: GestureDetector(
+          onTap: () => _charactersBloc.add(CharactersChangeOrder()),
+          child: BlocBuilder<CharactersBloc, CharactersState>(
+            builder: (context, state) => Icon(
+                _charactersBloc.isOrderedAscending == true
+                    ? CupertinoIcons.sort_down
+                    : CupertinoIcons.sort_up),
+          ),
+        ),
       );
 
   _buildListener(BuildContext context, CharactersState state) {

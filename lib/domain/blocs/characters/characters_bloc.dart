@@ -4,7 +4,9 @@ import 'package:breaking_bad_api_flutter/domain/domain.dart';
 
 class CharactersBloc extends Bloc<CharactersEvent, CharactersState> {
   late CharactersOriginalData _charactersOriginalData;
+  bool? _isOrderedAscending;
   bool _showOnlyFavourites;
+  bool? get isOrderedAscending => _isOrderedAscending;
   bool get showOnlyFavourites => _showOnlyFavourites;
 
   CharactersBloc({
@@ -58,6 +60,20 @@ class CharactersBloc extends Bloc<CharactersEvent, CharactersState> {
       final bool isAddedToFavourites =
           await Character.checkIfCharacterInFavourites(event.characterId);
       yield _loadedCharacter(isAddedToFavourites);
+    } else if (event is CharactersChangeOrder) {
+      _isOrderedAscending =
+          _isOrderedAscending == null || _isOrderedAscending == false
+              ? true
+              : false;
+      if (_charactersOriginalData.characters.length > 0) {
+        if (_isOrderedAscending == true)
+          _charactersOriginalData.characters
+              .sort((a, b) => a.name.compareTo(b.name));
+        else
+          _charactersOriginalData.characters
+              .sort((a, b) => -1 * a.name.compareTo(b.name));
+      }
+      yield _initialFinished();
     }
   }
 

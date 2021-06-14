@@ -6,6 +6,10 @@ class CharactersRefreshCharacters extends CharactersEvent {
   const CharactersRefreshCharacters();
 }
 
+class CharactersChangeOrder extends CharactersEvent {
+  const CharactersChangeOrder();
+}
+
 class CharactersChooseCharacter extends CharactersEvent {
   final int characterId;
 
