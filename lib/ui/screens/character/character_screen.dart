@@ -1,3 +1,4 @@
+import 'package:breaking_bad_api_flutter/domain/domain.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -67,13 +68,33 @@ class _CharacterScreenState extends State<CharacterScreen> {
 
   Widget _buildCharacterImage(String url, BuildContext context) => Container(
         margin: EdgeInsets.all(Paddings.iosNormalPadding),
-        child: CachedNetworkImage(
-          height: MediaQuery.of(context).size.height *
-              ComponentDimensions.characterImageHeightRatio,
-          errorWidget: (context, url, error) => Icon(AppIconDatas.Error),
-          fadeOutCurve: Curves.easeIn,
-          placeholder: (_, __) => CupertinoActivityIndicator(),
-          imageUrl: url,
+        child: GestureDetector(
+          onLongPress: () async {
+            LoadingUtility.startLoading(context);
+            var result = await WebUtility.downloadImageFromUrl(url);
+            LoadingUtility.finishLoading(context);
+            showCupertinoDialog(
+              context: context,
+              builder: (context) => CupertinoAlertDialog(
+                title: Text("Saving status"),
+                content: Text(result),
+                actions: [
+                  CupertinoDialogAction(
+                    onPressed: () => Navigator.pop(context),
+                    child: Text("OK"),
+                  ),
+                ],
+              ),
+            );
+          },
+          child: CachedNetworkImage(
+            height: MediaQuery.of(context).size.height *
+                ComponentDimensions.characterImageHeightRatio,
+            errorWidget: (context, url, error) => Icon(AppIconDatas.Error),
+            fadeOutCurve: Curves.easeIn,
+            placeholder: (_, __) => CupertinoActivityIndicator(),
+            imageUrl: url,
+          ),
         ),
       );
 
