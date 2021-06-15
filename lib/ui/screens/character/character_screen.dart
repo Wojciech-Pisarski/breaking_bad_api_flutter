@@ -25,8 +25,30 @@ class _CharacterScreenState extends State<CharacterScreen> {
   @override
   Widget build(BuildContext context) => WillPopScope(
         onWillPop: () async {
-          Navigator.pop(context, _characterBloc.shouldRefreshFavouriteEpisodes);
-          return false;
+          bool result = true;
+          if (_characterBloc.shouldRefreshFavouriteEpisodes)
+            result = await showCupertinoDialog(
+              barrierDismissible: false,
+              context: context,
+              builder: (context) => CupertinoAlertDialog(
+                title: Text("Are you sure you that want to exit?"),
+                content:
+                    Text("You have modified this person's database entry."),
+                actions: [
+                  CupertinoDialogAction(
+                    isDefaultAction: true,
+                    onPressed: () => Navigator.pop(context, true),
+                    child: Text("Yes"),
+                  ),
+                  CupertinoDialogAction(
+                    isDestructiveAction: true,
+                    onPressed: () => Navigator.pop(context, false),
+                    child: Text("No"),
+                  ),
+                ],
+              ),
+            );
+          return result;
         },
         child: CupertinoPageScaffold(
           backgroundColor: AppColors.screenGrayBackground,
